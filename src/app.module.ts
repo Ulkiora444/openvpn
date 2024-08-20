@@ -10,6 +10,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { PlansModule } from './plans/plans.module';
 import { UsersModule } from './users/users.module';
 import { Active_PlansModule } from './active_plans/active_plans.module';
+import { Plans } from './Entities/plans.entity';
+import { Active_Plans } from './Entities/active_plans.entity';
 
 @Module({
   imports: [
@@ -19,9 +21,11 @@ import { Active_PlansModule } from './active_plans/active_plans.module';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'project_happy_kadyrka',
+      database: 'template1',
       entities: [
         Users,
+        Plans,
+        Active_Plans
       ],
       autoLoadEntities: true,
     }),
