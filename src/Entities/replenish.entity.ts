@@ -1,19 +1,14 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
-export class Plans {
+export class Replenish {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('text')
-    name: string;
+    @Column('integer')
+    usersId: number;
 
     @Column('double precision')
-    price: number;
+    money: number;
 
-    @Column('integer')
-    time: number;
-
-    @Column('text')
-    dateName: string;
 }                        

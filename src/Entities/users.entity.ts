@@ -22,4 +22,10 @@ export class Users {
 
     @Column('double precision')
     money: number;
+
+    @Column('boolean')
+    isDelete: boolean;
+
+    @Column('integer')
+    rolesId: number;
 }                        
