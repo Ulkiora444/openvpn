@@ -1,5 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { HistoryModel } from 'src/Models/history.model';
+import { Controller, Get, Param } from '@nestjs/common';
 import { HistoryService } from './history.service';
 
 @Controller('history')

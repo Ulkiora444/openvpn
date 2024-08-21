@@ -1,5 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { ReplenishModel } from 'src/Models/replenish.model';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ReplenishService } from './replenish.service';
 
 @Controller('replenish')

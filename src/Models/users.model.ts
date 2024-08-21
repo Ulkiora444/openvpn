@@ -6,4 +6,6 @@ export interface UsersModel{
     username: string;
     name: string;
     money: number;
+    isDelete: number;
+    rolesId: number
 }                     

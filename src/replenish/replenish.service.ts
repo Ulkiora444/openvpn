@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Replenish } from 'src/Entities/replenish.entity';
-import { ReplenishModel } from 'src/Models/replenish.model';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -27,33 +26,6 @@ export class ReplenishService {
         }
         catch{
             throw new HttpException(`Cannot GET /replenish/${id}`, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    async create(replenish: ReplenishModel){
-        try{
-            return this.replenishRepository.save(replenish);
-        }
-        catch{
-            throw new HttpException(`Cannot POST /replenish`, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    async update(replenish: ReplenishModel){
-        try{
-            return this.replenishRepository.update(replenish.id, replenish);
-        }
-        catch{
-            throw new HttpException(`Cannot PUT /replenish`, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    async delete(id: number){
-        try{
-            return this.replenishRepository.delete(id);
-        }
-        catch{
-            throw new HttpException(`Cannot DELETE /replenish/${id}`, HttpStatus.NOT_FOUND);
         }
     }
 }
