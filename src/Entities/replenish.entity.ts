@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Users } from './users.entity';
 
 @Entity()
 export class Replenish {
@@ -11,4 +12,6 @@ export class Replenish {
     @Column('double precision')
     money: number;
 
+    @ManyToOne(type => Users, (rls) => rls.replenish)
+    users: Users;
 }                        

@@ -5,6 +5,10 @@ import { Plans } from 'src/Entities/plans.entity';
 import { Users } from 'src/Entities/users.entity';
 import { Active_PlansModel } from 'src/Models/active_plans.model';
 import { Repository } from 'typeorm';
+import { spawn } from 'child_process';
+import { Observable } from 'rxjs';
+import * as path from 'path';
+import { History } from 'src/Entities/history.entity';
 
 @Injectable()
 export class Active_PlansService {
@@ -16,6 +20,8 @@ export class Active_PlansService {
         private readonly usersRepository: Repository<Users>,
         @InjectRepository(Plans)
         private readonly plansRepository: Repository<Plans>,
+        @InjectRepository(History)
+        private readonly historyRepository: Repository<History>,
     ){}
 
     async find(){
@@ -37,19 +43,44 @@ export class Active_PlansService {
     }
 
     async create(active_plans: Active_PlansModel){
-        try{
-            const user = await this.usersRepository.findOne({where: {id: active_plans.usersId}});
-            const plan = await this.plansRepository.findOne({where: {id: active_plans.plansId}});
-            if(user.money-plan.price>=0){
+        // try{
+            let user = await this.usersRepository.findOne({where: {id: active_plans.usersId}});
+            let plan = await this.plansRepository.findOne({where: {id: active_plans.plansId}});
+            if(user.money>=plan.price){
+                let all_plans_this_user = await this.active_plansRepository.find({where: {usersId: active_plans.usersId}});
                 active_plans.startDate = new Date();
-                active_plans.endDate = new Date(active_plans.startDate.getFullYear()+(plan.dateName=='y'?plan.time:0), active_plans.startDate.getMonth()+(plan.dateName=='m'?plan.time:0), active_plans.endDate.getDate()+(plan.dateName=='d'?plan.time:0));
-                return this.active_plansRepository.save(active_plans);
-            }
+                active_plans.endDate = new Date(active_plans.startDate.getFullYear()+(plan.dateName=='y'?plan.time:0), active_plans.startDate.getMonth()+(plan.dateName=='m'?plan.time:0), active_plans.startDate.getDate()+(plan.dateName=='d'?plan.time:0));
+                active_plans.file = user.name+(all_plans_this_user.length==0?'':'_'+all_plans_this_user.length+1)+'.ovpn';
+
+
+                let filename = path.resolve(__dirname, '..', '..', 'public', 'python_scripts');
+                let fullPath = path.join(filename, 'create_key.py');
+                let python_script: any = new Observable((observer: any) => {
+                    const pythonProcess = spawn('python', [fullPath, user.name+(all_plans_this_user.length==0?'':'_'+all_plans_this_user.length+1)]);
+                
+                    pythonProcess.stdout.on('data', (data: any) => {
+                        this.active_plansRepository.save(active_plans);
+                        user.money -= plan.price;
+                        this.usersRepository.update(user.id, user);
+                        this.historyRepository.save({usersId: user.id, plansId: plan.id})
+                        observer.next({success: true});
+                    });
+                    
+                    pythonProcess.stderr.on('data', (data) => {
+                        observer.error(new HttpException(`Cannot POST /active_plans`, HttpStatus.NOT_FOUND));
+                    });
+                
+                    pythonProcess.on('close', (code) => {
+                        observer.complete(new HttpException(`Cannot POST /active_plans`, HttpStatus.NOT_FOUND));
+                    });
+                });
+                return python_script;
+            }            
             throw new HttpException(`Cannot POST /active_plans`, HttpStatus.NOT_FOUND);
-        }
-        catch{
-            throw new HttpException(`Cannot POST /active_plans`, HttpStatus.NOT_FOUND);
-        }
+        // }
+        // catch{
+        //     throw new HttpException(`Cannot POST /active_plans`, HttpStatus.NOT_FOUND);
+        // }
     }
 
     async update(active_plans: Active_PlansModel){

@@ -6,10 +6,11 @@ import { Active_Plans } from 'src/Entities/active_plans.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { Users } from 'src/Entities/users.entity';
 import { Plans } from 'src/Entities/plans.entity';
+import { History } from 'src/Entities/history.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Active_Plans, Users, Plans]),
+        TypeOrmModule.forFeature([Active_Plans, Users, Plans, History]),
         JwtModule.register({
             secret: "isajfysadofbivuvhyw98474y9273459437by978wyebufiadbyfoy2887204357029384bwioeurynwiecufywoineuyaniulyr2304870510451094ncryfhnc0n139rdxn2398djcnj2381mjdc9n8ud0xs812djd",
             signOptions: { expiresIn: '24h' },

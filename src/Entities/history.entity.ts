@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Users } from './users.entity';
+import { Plans } from './plans.entity';
+import { Checks } from './checks.entity';
 
 @Entity()
 export class History {
@@ -14,4 +17,12 @@ export class History {
     @Column('integer')
     checksId: number;
 
+    @ManyToOne(type => Users, (rls) => rls.history)
+    users: Users;
+
+    @ManyToOne(type => Plans, (rls) => rls.history)
+    plans: Plans;
+
+    @ManyToOne(type => Checks, (rls) => rls.history)
+    checks: Checks;
 }                        

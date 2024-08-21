@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Users } from './users.entity';
+import { Plans } from './plans.entity';
 
 @Entity()
 export class Active_Plans {
@@ -20,4 +22,9 @@ export class Active_Plans {
     @Column('text')
     file: string;
 
+    @ManyToOne(type => Users, (rls) => rls.active_plan)
+    users: Users;
+
+    @ManyToOne(type => Plans, (rls) => rls.active_plan)
+    plans: Plans;
 }                        
