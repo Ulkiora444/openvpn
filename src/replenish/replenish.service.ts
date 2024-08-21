@@ -32,11 +32,7 @@ export class ReplenishService {
 
     async create(replenish: ReplenishModel){
         try{
-            const old_replenish = await this.replenishRepository.findOne({where: {name: replenish.name}});
-            if(!old_replenish){
-                return this.replenishRepository.save(replenish);
-            }
-            throw new HttpException(`Cannot POST /replenish`, HttpStatus.NOT_FOUND);
+            return this.replenishRepository.save(replenish);
         }
         catch{
             throw new HttpException(`Cannot POST /replenish`, HttpStatus.NOT_FOUND);
@@ -45,11 +41,7 @@ export class ReplenishService {
 
     async update(replenish: ReplenishModel){
         try{
-            const old_replenish = await this.replenishRepository.findOne({where: {name: replenish.name}});
-            if(!old_replenish){
-                return this.replenishRepository.update(replenish.id, replenish);
-            }
-            throw new HttpException(`Cannot PUT /replenish`, HttpStatus.NOT_FOUND);
+            return this.replenishRepository.update(replenish.id, replenish);
         }
         catch{
             throw new HttpException(`Cannot PUT /replenish`, HttpStatus.NOT_FOUND);

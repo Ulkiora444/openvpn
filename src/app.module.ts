@@ -15,6 +15,10 @@ import { ChecksModule } from './checks/checks.module';
 import { HistoryModule } from './history/history.module';
 import { Checks } from './Entities/checks.entity';
 import { History } from './Entities/history.entity';
+import { RolesModule } from './roles/roles.module';
+import { ReplenishModule } from './replenish/replenish.module';
+import { Roles } from './Entities/roles.entity';
+import { Replenish } from './Entities/replenish.entity';
 
 @Module({
   imports: [
@@ -30,7 +34,9 @@ import { History } from './Entities/history.entity';
         Plans,
         Active_Plans,
         Checks,
-        History
+        History,
+        Roles,
+        Replenish
       ],
       autoLoadEntities: true,
     }),
@@ -48,7 +54,9 @@ import { History } from './Entities/history.entity';
     PlansModule,
     Active_PlansModule,
     ChecksModule,
-    HistoryModule
+    HistoryModule,
+    RolesModule,
+    ReplenishModule
   ],
   providers: [],
 })

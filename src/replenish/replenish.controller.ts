@@ -15,19 +15,4 @@ export class ReplenishController {
     async findOne(@Param('id') id: number){
         return this.replenishService.findOne(id);
     }
-
-    @Post()
-    async create(@Body() replenish: ReplenishModel){
-        return this.replenishService.create(replenish);
-    }
-
-    @Put()
-    async update(@Body() replenish: ReplenishModel){
-        return this.replenishService.update(replenish);
-    }
-    
-    @Delete(':id')
-    async delete(@Param('id', ParseIntPipe) id: number){
-        return this.replenishService.delete(id);
-    }
 }
