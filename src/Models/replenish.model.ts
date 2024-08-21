@@ -1,5 +1,5 @@
 export interface ReplenishModel{
-    id: number;
+    id?: number;
     usersId: number;
     money: number;
 

@@ -1,8 +1,8 @@
 export interface Active_PlansModel{
-    id: number;
+    id?: number;
     usersId: number;
     plansId: number;
-    startDate: Date;
-    endDate: Date;
-    file: string;
+    startDate?: Date;
+    endDate?: Date;
+    file?: string;
 }                     

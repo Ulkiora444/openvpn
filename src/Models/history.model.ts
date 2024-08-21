@@ -1,5 +1,5 @@
 export interface HistoryModel{
-    id: number;
+    id?: number;
     usersId: number;
     plansId: number;
     checksId: number;

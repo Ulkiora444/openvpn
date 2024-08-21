@@ -1,5 +1,5 @@
 export interface ChecksModel{
-    id: number;
+    id?: number;
     name: string;
 
 }                     

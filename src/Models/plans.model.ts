@@ -1,5 +1,5 @@
 export interface PlansModel{
-    id: number;
+    id?: number;
     name: string;
     price: number;
     time: number;

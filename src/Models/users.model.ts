@@ -1,11 +1,11 @@
 export interface UsersModel{
-    id: number;
+    id?: number;
     phone: string;
     email: string;
     password: string;
     username: string;
     name: string;
-    money: number;
-    isDelete: number;
-    rolesId: number
+    money?: number;
+    isDelete?: number;
+    rolesId?: number
 }                     
