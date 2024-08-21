@@ -5,13 +5,16 @@ import { join } from 'path';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ImagesModule } from './images/images.module';
 import { Users } from './Entities/users.entity';
-import { AdminChatGateway } from './admin-chat.gateway';
 import { JwtModule } from '@nestjs/jwt';
 import { PlansModule } from './plans/plans.module';
 import { UsersModule } from './users/users.module';
 import { Active_PlansModule } from './active_plans/active_plans.module';
 import { Plans } from './Entities/plans.entity';
 import { Active_Plans } from './Entities/active_plans.entity';
+import { ChecksModule } from './checks/checks.module';
+import { HistoryModule } from './history/history.module';
+import { Checks } from './Entities/checks.entity';
+import { History } from './Entities/history.entity';
 
 @Module({
   imports: [
@@ -25,7 +28,9 @@ import { Active_Plans } from './Entities/active_plans.entity';
       entities: [
         Users,
         Plans,
-        Active_Plans
+        Active_Plans,
+        Checks,
+        History
       ],
       autoLoadEntities: true,
     }),
@@ -41,8 +46,10 @@ import { Active_Plans } from './Entities/active_plans.entity';
     ImagesModule,
     UsersModule,
     PlansModule,
-    Active_PlansModule
+    Active_PlansModule,
+    ChecksModule,
+    HistoryModule
   ],
-  providers: [AdminChatGateway],
+  providers: [],
 })
 export class AppModule {}

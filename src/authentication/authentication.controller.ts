@@ -1,8 +1,8 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { Login, Registration } from './authentication.model';
 import { AuthenticationService } from './authentication.service';
-import { AuthenticationAdminGuard } from 'src/Guards/authentication-admin.guard';
-import { AuthenticationUserGuard } from 'src/Guards/authentication-user.guard';
+// import { AuthenticationAdminGuard } from 'src/Guards/authentication-admin.guard';
+// import { AuthenticationUserGuard } from 'src/Guards/authentication-user.guard';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -18,10 +18,10 @@ export class AuthenticationController {
     return this.authenticationService.registration(registration);
   }
 
-  @Post('check_datas')
-  async checkDatas(@Body() datas: any){
-    return this.authenticationService.checkDatas(datas);
-  }
+  // @Post('check_datas')
+  // async checkDatas(@Body() datas: any){
+  //   return this.authenticationService.checkDatas(datas);
+  // }
 
   // @UseGuards(AuthenticationAdminGuard)
   // @Post('verification')

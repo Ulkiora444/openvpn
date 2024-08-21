@@ -48,19 +48,19 @@ export class AuthenticationService {
         }
     }
 
-    async checkDatas(datas: any){
-        try{
-            const data_email = await this.usersRepository.findOne({where: {email: datas.email}});
-            const data_username = await this.usersRepository.findOne({where: {username: datas.username}});
-            const data_phone = await this.usersRepository.findOne({where: {phone: datas.phone}});
-            if(!data_email && !data_username && !data_phone){
-                return {success: true};        
-            }
-            return {success: false, email: data_email?false:true, username: data_username?false:true, phone: data_phone?false:true};
-        }catch{
-            throw new HttpException("Cannot POST /authentication/check_datas", HttpStatus.NOT_FOUND);
-        }
-    }
+    // async checkDatas(datas: any){
+    //     try{
+    //         const data_email = await this.usersRepository.findOne({where: {email: datas.email}});
+    //         const data_username = await this.usersRepository.findOne({where: {username: datas.username}});
+    //         const data_phone = await this.usersRepository.findOne({where: {phone: datas.phone}});
+    //         if(!data_email && !data_username && !data_phone){
+    //             return {success: true};        
+    //         }
+    //         return {success: false, email: data_email?false:true, username: data_username?false:true, phone: data_phone?false:true};
+    //     }catch{
+    //         throw new HttpException("Cannot POST /authentication/check_datas", HttpStatus.NOT_FOUND);
+    //     }
+    // }
 
     // async verificationAdmin(token: string){
     //     try{
